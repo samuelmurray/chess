@@ -2,6 +2,8 @@ package io.github.samuelmurray.game;
 
 import org.junit.jupiter.api.Test;
 
+import static io.github.samuelmurray.game.Position.OUT_OF_BOARD;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -53,18 +55,28 @@ class PositionTest {
     }
 
     @Test
+    void testOUT_OF_BOARDHasNoNeighbours() {
+        assertAll(
+                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.above),
+                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.below),
+                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.right),
+                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.left)
+        );
+    }
+
+    @Test
     void testRelationsAreAntiSymmetrical() {
         for (var position : Position.values()) {
-            if (position.above != null) {
+            if (position.above != null && position.above != OUT_OF_BOARD) {
                 assertEquals(position, position.above.below);
             }
-            if (position.below != null) {
+            if (position.below != null && position.below != OUT_OF_BOARD) {
                 assertEquals(position, position.below.above);
             }
-            if (position.right != null) {
+            if (position.right != null && position.right != OUT_OF_BOARD) {
                 assertEquals(position, position.right.left);
             }
-            if (position.left != null) {
+            if (position.left != null && position.left != OUT_OF_BOARD) {
                 assertEquals(position, position.left.right);
             }
         }

@@ -23,16 +23,16 @@ public enum Position {
         for (var position : Position.values()) {
             position.above = Stream.of(Position.values())
                     .filter(other -> other.coordinate.isAbove(position.coordinate))
-                    .findAny().orElse(null);
+                    .findAny().orElse(OUT_OF_BOARD);
             position.below = Stream.of(Position.values())
                     .filter(other -> other.coordinate.isBelow(position.coordinate))
-                    .findAny().orElse(null);
+                    .findAny().orElse(OUT_OF_BOARD);
             position.right = Stream.of(Position.values())
                     .filter(other -> other.coordinate.isRightOf(position.coordinate))
-                    .findAny().orElse(null);
+                    .findAny().orElse(OUT_OF_BOARD);
             position.left = Stream.of(Position.values())
                     .filter(other -> other.coordinate.isLeftOf(position.coordinate))
-                    .findAny().orElse(null);
+                    .findAny().orElse(OUT_OF_BOARD);
         }
     }
 
