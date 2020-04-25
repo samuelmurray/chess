@@ -3,6 +3,7 @@ package io.github.samuelmurray.game;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class King extends ChessPiece {
 
@@ -23,8 +24,9 @@ public class King extends ChessPiece {
     }
 
     private static Set<Position> getPotentiallyValidMoves(Position currentPosition) {
-        return Set.of(currentPosition.above, currentPosition.below, currentPosition.left, currentPosition.right,
-                currentPosition.above.right, currentPosition.above.left,
-                currentPosition.below.right, currentPosition.below.left);
+        return Stream.of(currentPosition.above, currentPosition.below, currentPosition.left, currentPosition.right,
+                currentPosition.above.right, currentPosition.above.left, currentPosition.below.right, currentPosition.below.left)
+                .filter(position -> position != Position.OUT_OF_BOARD)
+                .collect(Collectors.toUnmodifiableSet());
     }
 }
