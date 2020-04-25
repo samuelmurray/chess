@@ -15,20 +15,22 @@
             <url>https://samuelmurray.github.io</url>
         </contributor>
     </contributors>
+
     <modules>
         <module>backend</module>
     </modules>
+
+    <properties>
+        <maven.compiler.release>14</maven.compiler.release>
+        <junit-jupiter-api.version>5.5.0-M1</junit-jupiter-api.version>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.5.0-M1</version>
+            <version>${junit-jupiter-api.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.release>14</maven.compiler.release>
-    </properties>
 </project>
