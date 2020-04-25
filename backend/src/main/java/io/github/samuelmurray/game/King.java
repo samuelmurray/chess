@@ -6,13 +6,15 @@ import java.util.stream.Collectors;
 
 public class King extends ChessPiece {
 
-    public King(Position position, Team team) {
-        super(position, team);
+    public King(Team team) {
+        super(team);
     }
 
     @Override
     public Set<Position> getValidMoves(GameState gameState) {
-        return getPotentiallyValidMoves().stream()
+        Position currentPosition = gameState.getPositionOfPiece(this)
+                .orElseThrow(() -> new ChessException("Can't call getValidModes on piece missing from the game state"));
+        return getPotentiallyValidMoves(currentPosition).stream()
                 .filter(position -> {
                     Optional<ChessPiece> maybeOther = gameState.getPieceAt(position);
                     return maybeOther.map(piece -> piece.team != this.team).orElse(true);
@@ -20,8 +22,9 @@ public class King extends ChessPiece {
                 .collect(Collectors.toSet());
     }
 
-    private Set<Position> getPotentiallyValidMoves() {
-        return Set.of(this.position.above, this.position.below, this.position.left, this.position.right,
-                this.position.above.right, this.position.above.left, this.position.below.right, this.position.below.left);
+    private static Set<Position> getPotentiallyValidMoves(Position currentPosition) {
+        return Set.of(currentPosition.above, currentPosition.below, currentPosition.left, currentPosition.right,
+                currentPosition.above.right, currentPosition.above.left,
+                currentPosition.below.right, currentPosition.below.left);
     }
 }

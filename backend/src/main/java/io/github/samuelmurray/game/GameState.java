@@ -20,4 +20,11 @@ public class GameState {
     public Optional<ChessPiece> getPieceAt(Position position) {
         return Optional.ofNullable(positionToChessPiece.get(position));
     }
+
+    public Optional<Position> getPositionOfPiece(ChessPiece chessPiece) {
+        return positionToChessPiece.entrySet().stream()
+                .filter(e -> e.getValue() == chessPiece)
+                .map(Map.Entry::getKey)
+                .findAny();
+    }
 }

@@ -2,7 +2,8 @@ package io.github.samuelmurray.game;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PositionTest {
 
@@ -35,6 +36,7 @@ class PositionTest {
     void testA1HasNothingBelow() {
         assertNull(Position.A1.below);
     }
+
     @Test
     void testA1HasNothingLeft() {
         assertNull(Position.A1.left);
@@ -44,6 +46,7 @@ class PositionTest {
     void testH8HasNothingAbove() {
         assertNull(Position.H8.above);
     }
+
     @Test
     void testH8HasNothingRight() {
         assertNull(Position.H8.right);
