@@ -25,5 +25,5 @@ jobs:
     - name: Codecov
       uses: codecov/codecov-action@v1
       with:
-        file: ./backend/coverage.xml
+        file: ./backend/jacoco.xml
         flags: unittests
