@@ -11,8 +11,8 @@ class MovementHelper {
     private MovementHelper() {
     }
 
-    static Set<Position> getPotentialPositionsInDirection(Position currentPosition, GameState gameState,
-                                                          Function<Position, Position> direction) {
+    static Set<Position> getPositionsInDirectionAndStopAtPiece(Position currentPosition, GameState gameState,
+                                                               Function<Position, Position> direction) {
         Set<Position> positions = new HashSet<>();
         while (true) {
             currentPosition = direction.apply(currentPosition);
