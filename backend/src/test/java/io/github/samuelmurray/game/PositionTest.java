@@ -7,7 +7,6 @@ import static io.github.samuelmurray.game.Position.A1;
 import static io.github.samuelmurray.game.Position.OUT_OF_BOARD;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PositionTest {
 

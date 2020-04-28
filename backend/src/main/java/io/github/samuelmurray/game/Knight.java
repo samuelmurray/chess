@@ -10,7 +10,7 @@ public class Knight extends ChessPiece {
     }
 
     @Override
-    protected Set<Position> getPotentiallyValidMoves(Position currentPosition) {
+    protected Set<Position> getPotentiallyValidMoves(Position currentPosition, GameState gameState) {
         return Stream.of(currentPosition.getAbove().getAbove().getRight(), currentPosition.getAbove().getAbove().getLeft(),
                 currentPosition.getLeft().getLeft().getAbove(), currentPosition.getLeft().getLeft().getBelow(),
                 currentPosition.getRight().getRight().getAbove(), currentPosition.getRight().getRight().getBelow(),

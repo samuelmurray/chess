@@ -11,7 +11,7 @@ public class King extends ChessPiece {
     }
 
     @Override
-    protected Set<Position> getPotentiallyValidMoves(Position currentPosition) {
+    protected Set<Position> getPotentiallyValidMoves(Position currentPosition, GameState gameState) {
         return Stream.of(currentPosition.getAbove(), currentPosition.getBelow(), currentPosition.getLeft(), currentPosition.getRight(),
                 currentPosition.getAbove().getRight(), currentPosition.getAbove().getLeft(),
                 currentPosition.getBelow().getRight(), currentPosition.getBelow().getLeft())

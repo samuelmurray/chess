@@ -15,7 +15,7 @@ public abstract class ChessPiece {
     public Set<Position> getValidMoves(GameState gameState) {
         Position currentPosition = gameState.getPositionOfPiece(this)
                 .orElseThrow(() -> new ChessException("Can't call getValidModes on piece missing from the game state"));
-        return getPotentiallyValidMoves(currentPosition).stream()
+        return getPotentiallyValidMoves(currentPosition, gameState).stream()
                 .filter(position -> {
                     Optional<ChessPiece> maybeOther = gameState.getPieceAt(position);
                     return maybeOther.map(piece -> piece.team != this.team).orElse(true);
@@ -23,5 +23,5 @@ public abstract class ChessPiece {
                 .collect(Collectors.toSet());
     }
 
-    protected abstract Set<Position> getPotentiallyValidMoves(Position currentPosition);
+    protected abstract Set<Position> getPotentiallyValidMoves(Position currentPosition, GameState gameState);
 }
