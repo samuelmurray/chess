@@ -1,16 +1,15 @@
-package io.github.samuelmurray.game;
+package io.github.samuelmurray.game.piece;
+
+import io.github.samuelmurray.game.GameState;
+import io.github.samuelmurray.game.Position;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Knight extends ChessPiece {
-    public Knight(Team team) {
-        super(team);
-    }
-
+final class KnightMovement implements PieceMovement {
     @Override
-    protected Set<Position> getPotentiallyValidMoves(Position currentPosition, GameState gameState) {
+    public Set<Position> getPotentiallyValidMoves(Position currentPosition, GameState gameState) {
         return Stream.of(currentPosition.getAbove().getAbove().getRight(), currentPosition.getAbove().getAbove().getLeft(),
                 currentPosition.getLeft().getLeft().getAbove(), currentPosition.getLeft().getLeft().getBelow(),
                 currentPosition.getRight().getRight().getAbove(), currentPosition.getRight().getRight().getBelow(),

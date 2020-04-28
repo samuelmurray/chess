@@ -1,5 +1,7 @@
 package io.github.samuelmurray.game;
 
+import io.github.samuelmurray.game.piece.ChessPiece;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -10,7 +12,7 @@ public class GameState {
         this.positionToChessPiece = positionToChessPiece;
     }
 
-    static GameState of(Map<Position, ChessPiece> positionToChessPiece) {
+    public static GameState of(Map<Position, ChessPiece> positionToChessPiece) {
         if (positionToChessPiece.containsKey(Position.OUT_OF_BOARD)) {
             throw new IllegalArgumentException("positionToChessPiece can't contain Position.OUT_OF_BOARD");
         }
