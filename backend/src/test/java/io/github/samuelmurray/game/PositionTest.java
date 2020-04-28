@@ -16,68 +16,68 @@ class PositionTest {
 
     @Test
     void testA1IsBelowB1() {
-        assertEquals(Position.A1, Position.B1.below);
+        assertEquals(Position.A1, Position.B1.getBelow());
     }
 
     @Test
     void testB1IsAboveA1() {
-        assertEquals(Position.B1, Position.A1.above);
+        assertEquals(Position.B1, Position.A1.getAbove());
     }
 
     @Test
     void testA2IsRightOfA1() {
-        assertEquals(Position.A2, Position.A1.right);
+        assertEquals(Position.A2, Position.A1.getRight());
     }
 
     @Test
     void testA1IsLeftOfA2() {
-        assertEquals(Position.A1, Position.A2.left);
+        assertEquals(Position.A1, Position.A2.getLeft());
     }
 
     @Test
     void testA1HasNothingBelow() {
-        assertNull(Position.A1.below);
+        assertNull(Position.A1.getBelow());
     }
 
     @Test
     void testA1HasNothingLeft() {
-        assertNull(Position.A1.left);
+        assertNull(Position.A1.getLeft());
     }
 
     @Test
     void testH8HasNothingAbove() {
-        assertNull(Position.H8.above);
+        assertNull(Position.H8.getAbove());
     }
 
     @Test
     void testH8HasNothingRight() {
-        assertNull(Position.H8.right);
+        assertNull(Position.H8.getRight());
     }
 
     @Test
     void testOUT_OF_BOARDHasNoNeighbours() {
         assertAll(
-                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.above),
-                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.below),
-                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.right),
-                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.left)
+                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.getAbove()),
+                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.getBelow()),
+                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.getRight()),
+                () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.getRight())
         );
     }
 
     @Test
     void testRelationsAreAntiSymmetrical() {
         for (var position : Position.values()) {
-            if (position.above != null && position.above != OUT_OF_BOARD) {
-                assertEquals(position, position.above.below);
+            if (position.getAbove() != null && position.getAbove() != OUT_OF_BOARD) {
+                assertEquals(position, position.getAbove().getBelow());
             }
-            if (position.below != null && position.below != OUT_OF_BOARD) {
-                assertEquals(position, position.below.above);
+            if (position.getBelow() != null && position.getBelow() != OUT_OF_BOARD) {
+                assertEquals(position, position.getBelow().getAbove());
             }
-            if (position.right != null && position.right != OUT_OF_BOARD) {
-                assertEquals(position, position.right.left);
+            if (position.getRight() != null && position.getRight() != OUT_OF_BOARD) {
+                assertEquals(position, position.getRight().getLeft());
             }
-            if (position.left != null && position.left != OUT_OF_BOARD) {
-                assertEquals(position, position.left.right);
+            if (position.getLeft() != null && position.getLeft() != OUT_OF_BOARD) {
+                assertEquals(position, position.getLeft().getRight());
             }
         }
     }

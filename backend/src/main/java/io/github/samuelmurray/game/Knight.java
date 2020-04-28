@@ -11,10 +11,10 @@ public class Knight extends ChessPiece {
 
     @Override
     protected Set<Position> getPotentiallyValidMoves(Position currentPosition) {
-        return Stream.of(currentPosition.above.above.right, currentPosition.above.above.left,
-                currentPosition.left.left.above, currentPosition.left.left.below,
-                currentPosition.right.right.above, currentPosition.right.right.below,
-                currentPosition.below.below.right, currentPosition.below.below.left)
+        return Stream.of(currentPosition.getAbove().getAbove().getRight(), currentPosition.getAbove().getAbove().getLeft(),
+                currentPosition.getLeft().getLeft().getAbove(), currentPosition.getLeft().getLeft().getBelow(),
+                currentPosition.getRight().getRight().getAbove(), currentPosition.getRight().getRight().getBelow(),
+                currentPosition.getBelow().getBelow().getRight(), currentPosition.getBelow().getBelow().getLeft())
                 .filter(position -> position != Position.OUT_OF_BOARD)
                 .collect(Collectors.toUnmodifiableSet());
     }
