@@ -21,8 +21,8 @@ jobs:
       with:
         java-version: 14
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B verify --file pom.xml
     - name: Codecov
       uses: codecov/codecov-action@v1
       with:
-        file: cov/jacoco.xml
+        file: ./cov/jacoco.xml
