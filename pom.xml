@@ -28,8 +28,8 @@
         <dependencies>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>5.5.0-M1</version>
+                <artifactId>junit-jupiter</artifactId>
+                <version>5.7.0-M1</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -56,13 +56,13 @@
                     <version>0.8.5</version>
                     <executions>
                         <execution>
+                            <id>default-prepare-agent</id>
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>
                         </execution>
                         <execution>
-                            <id>report</id>
-                            <phase>prepare-package</phase>
+                            <id>default-report</id>
                             <goals>
                                 <goal>report</goal>
                             </goals>
