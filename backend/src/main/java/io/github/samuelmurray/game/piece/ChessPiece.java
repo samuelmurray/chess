@@ -8,6 +8,7 @@ import io.github.samuelmurray.game.Team;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class ChessPiece {
@@ -25,8 +26,12 @@ public final class ChessPiece {
         return pieceMovement.getPotentiallyValidMoves(currentPosition, gameState).stream()
                 .filter(position -> {
                     Optional<ChessPiece> maybeOther = gameState.getPieceAt(position);
-                    return maybeOther.map(piece -> piece.team != this.team).orElse(true);
+                    return maybeOther.map(isCapturingMove()).orElse(true);
                 })
                 .collect(Collectors.toSet());
+    }
+
+    private Function<ChessPiece, Boolean> isCapturingMove() {
+        return piece -> piece.team != this.team;
     }
 }
