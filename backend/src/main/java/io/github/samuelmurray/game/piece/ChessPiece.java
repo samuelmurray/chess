@@ -24,10 +24,7 @@ public final class ChessPiece {
         Position currentPosition = gameState.getPositionOfPiece(this)
                 .orElseThrow(() -> new ChessException("Can't call getValidModes on piece missing from the game state"));
         return pieceMovement.getPotentiallyValidMoves(currentPosition, gameState).stream()
-                .filter(position -> {
-                    Optional<ChessPiece> maybeOther = gameState.getPieceAt(position);
-                    return maybeOther.map(isCapturingMove()).orElse(true);
-                })
+                .filter(position -> gameState.getPieceAt(position).map(isCapturingMove()).orElse(true))
                 .collect(Collectors.toSet());
     }
 
