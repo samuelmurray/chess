@@ -25,4 +25,4 @@ jobs:
     - name: Codecov
       uses: codecov/codecov-action@v1
       with:
-        file: ./cov/jacoco.xml
+        file: cov/jacoco.xml
