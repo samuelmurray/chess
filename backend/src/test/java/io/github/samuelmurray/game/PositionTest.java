@@ -3,8 +3,7 @@ package io.github.samuelmurray.game;
 import org.junit.jupiter.api.Test;
 
 import static io.github.samuelmurray.game.Position.*;
-import static io.github.samuelmurray.game.Position.A1;
-import static io.github.samuelmurray.game.Position.OUT_OF_BOARD;
+import static io.github.samuelmurray.game.Position.values;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

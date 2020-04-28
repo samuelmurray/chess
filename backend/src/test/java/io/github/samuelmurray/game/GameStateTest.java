@@ -1,23 +1,26 @@
 package io.github.samuelmurray.game;
 
+import io.github.samuelmurray.game.piece.ChessPiece;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
+import static io.github.samuelmurray.game.Position.A1;
+import static io.github.samuelmurray.game.Position.OUT_OF_BOARD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameStateTest {
     private GameState gameState;
+    private static final ChessPiece piece = new ChessPiece(Team.BLACK, null);
 
     @Test
     void testGameStateThrowsOnLargeBoardPositions() {
         Map<Position, ChessPiece> boardPositions = new HashMap<>();
-        boardPositions.put(Position.OUT_OF_BOARD, DummyChessPiece.instance);
+        boardPositions.put(OUT_OF_BOARD, piece);
         assertThrows(IllegalArgumentException.class, () -> GameState.of(boardPositions));
     }
 
@@ -30,16 +33,16 @@ class GameStateTest {
     @Test
     void testGetPieceAtReturnsEmptyOptionalForUnoccupiedPosition() {
         gameState = GameState.of(Collections.emptyMap());
-        var maybeChessPiece = gameState.getPieceAt(Position.A1);
+        var maybeChessPiece = gameState.getPieceAt(A1);
         assertTrue(maybeChessPiece.isEmpty());
     }
 
     @Test
     void testGetPieceAtReturnsCorrectPiece() {
-        gameState = GameState.of(Map.of(Position.A1, DummyChessPiece.instance));
-        var maybeChessPiece = gameState.getPieceAt(Position.A1);
+        gameState = GameState.of(Map.of(A1, piece));
+        var maybeChessPiece = gameState.getPieceAt(A1);
         assertTrue(maybeChessPiece.isPresent());
-        assertEquals(DummyChessPiece.instance, maybeChessPiece.get());
+        assertEquals(piece, maybeChessPiece.get());
     }
 
     @Test
@@ -52,28 +55,15 @@ class GameStateTest {
     @Test
     void testGetPositionOfPieceReturnsEmptyOptionalForMissingPiece() {
         gameState = GameState.of(Collections.emptyMap());
-        var maybePosition = gameState.getPositionOfPiece(DummyChessPiece.instance);
+        var maybePosition = gameState.getPositionOfPiece(piece);
         assertTrue(maybePosition.isEmpty());
     }
 
     @Test
     void testGetPositionOfPieceReturnsCorrectPosition() {
-        gameState = GameState.of(Map.of(Position.A1, DummyChessPiece.instance));
-        var maybeChessPiece = gameState.getPositionOfPiece(DummyChessPiece.instance);
+        gameState = GameState.of(Map.of(A1, piece));
+        var maybeChessPiece = gameState.getPositionOfPiece(piece);
         assertTrue(maybeChessPiece.isPresent());
-        assertEquals(Position.A1, maybeChessPiece.get());
-    }
-
-    private static class DummyChessPiece extends ChessPiece {
-        private static final DummyChessPiece instance = new DummyChessPiece();
-
-        private DummyChessPiece() {
-            super(Team.BLACK);
-        }
-
-        @Override
-        protected Set<Position> getPotentiallyValidMoves(Position currentPosition, GameState gameState) {
-            return null;
-        }
+        assertEquals(A1, maybeChessPiece.get());
     }
 }
