@@ -67,7 +67,7 @@
                                 <goal>report</goal>
                             </goals>
                             <configuration>
-                                <outputDirectory>./</outputDirectory>
+                                <outputDirectory>../cov</outputDirectory>
                             </configuration>
                         </execution>
                     </executions>
