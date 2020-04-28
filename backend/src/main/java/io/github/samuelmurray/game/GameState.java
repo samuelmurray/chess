@@ -17,6 +17,10 @@ public class GameState {
         return new GameState(Map.copyOf(positionToChessPiece));
     }
 
+    public boolean hasPieceAt(Position position) {
+        return positionToChessPiece.containsKey(position);
+    }
+
     public Optional<ChessPiece> getPieceAt(Position position) {
         return Optional.ofNullable(positionToChessPiece.get(position));
     }

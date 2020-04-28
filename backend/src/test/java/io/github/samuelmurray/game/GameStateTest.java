@@ -72,7 +72,7 @@ class GameStateTest {
         }
 
         @Override
-        protected Set<Position> getPotentiallyValidMoves(Position currentPosition) {
+        protected Set<Position> getPotentiallyValidMoves(Position currentPosition, GameState gameState) {
             return null;
         }
     }
