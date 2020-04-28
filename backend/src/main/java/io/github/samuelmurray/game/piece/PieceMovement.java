@@ -5,6 +5,6 @@ import io.github.samuelmurray.game.Position;
 
 import java.util.Set;
 
-public interface PieceMovement {
+interface PieceMovement {
     Set<Position> getPotentiallyValidMoves(Position currentPosition, GameState gameState);
 }
