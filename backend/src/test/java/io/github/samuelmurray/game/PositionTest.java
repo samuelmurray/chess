@@ -2,16 +2,31 @@ package io.github.samuelmurray.game;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Stream;
+
 import static io.github.samuelmurray.game.Position.*;
-import static io.github.samuelmurray.game.Position.values;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PositionTest {
 
     @Test
     void testPositionHas65Entries() {
         assertEquals(65, values().length);
+    }
+
+    @Test
+    void testAllPositionsAreOnBoard() {
+        assertTrue(Stream.of(values())
+                .filter(p -> p != OUT_OF_BOARD)
+                .allMatch(Position::isOnBoard));
+    }
+
+    @Test
+    void testOUT_OF_BOARDIsNotOnBoard() {
+        assertFalse(OUT_OF_BOARD.isOnBoard());
     }
 
     @Test
