@@ -14,7 +14,7 @@ public class GameState {
 
     public static GameState of(Map<Position, ChessPiece> positionToChessPiece) {
         if (positionToChessPiece.containsKey(Position.OUT_OF_BOARD)) {
-            throw new IllegalArgumentException("positionToChessPiece can't contain Position.OUT_OF_BOARD");
+            throw new ChessException("positionToChessPiece can't contain Position.OUT_OF_BOARD");
         }
         return new GameState(Map.copyOf(positionToChessPiece));
     }

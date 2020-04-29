@@ -25,7 +25,7 @@ class GameStateTest {
     void testGameStateThrowsOnLargeBoardPositions() {
         Map<Position, ChessPiece> boardPositions = new HashMap<>();
         boardPositions.put(OUT_OF_BOARD, piece);
-        assertThrows(IllegalArgumentException.class, () -> GameState.of(boardPositions));
+        assertThrows(ChessException.class, () -> GameState.of(boardPositions));
     }
 
     @Test
