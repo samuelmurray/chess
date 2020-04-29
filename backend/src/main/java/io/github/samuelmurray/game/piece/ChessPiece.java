@@ -6,7 +6,6 @@ import io.github.samuelmurray.game.GameState;
 import io.github.samuelmurray.game.Position;
 import io.github.samuelmurray.game.Team;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -23,7 +22,7 @@ public final class ChessPiece {
     public Set<Position> getValidMoves(GameState gameState) {
         Position currentPosition = gameState.getPositionOfPiece(this)
                 .orElseThrow(() -> new ChessException("Can't call getValidModes on piece missing from the game state"));
-        return pieceMovement.getPotentiallyValidMoves(currentPosition, gameState).stream()
+        return pieceMovement.getPotentiallyValidMoves(currentPosition, team, gameState).stream()
                 .filter(position -> gameState.getPieceAt(position).map(isCapturingMove()).orElse(true))
                 .collect(Collectors.toSet());
     }

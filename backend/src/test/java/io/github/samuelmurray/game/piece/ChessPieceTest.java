@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ChessPieceTest {
-    private final ChessPiece noMovePiece = new ChessPiece(Team.BLACK, (currentPosition, gameState) -> Collections.emptySet());
-    private final ChessPiece movePiece = new ChessPiece(Team.WHITE, (currentPosition, gameState) -> Set.of(A1, A2, A3));
+    private final ChessPiece noMovePiece = new ChessPiece(Team.BLACK, (currentPosition, currentTeam, gameState) -> Collections.emptySet());
+    private final ChessPiece movePiece = new ChessPiece(Team.WHITE, (currentPosition, currentTeam, gameState) -> Set.of(A1, A2, A3));
 
     @Test
     void testGetValidMovesThrowsOnNull() {
