@@ -12,11 +12,21 @@ import java.util.stream.Collectors;
 
 public final class ChessPiece {
     private final Team team;
+    private final PieceType type;
     private final PieceMovement pieceMovement;
 
-    public ChessPiece(Team team, PieceMovement pieceMovement) {
+    ChessPiece(Team team, PieceType type, PieceMovement pieceMovement) {
         this.team = team;
+        this.type = type;
         this.pieceMovement = pieceMovement;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public PieceType getType() {
+        return type;
     }
 
     public Set<Position> getValidMoves(GameState gameState) {

@@ -32,7 +32,7 @@ class BishopMovementTest {
 
     @Test
     void testGetMovesOtherPiecesBlock() {
-        ChessPiece otherPiece = new ChessPiece(null, null);
+        ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(C3, otherPiece));
         Set<Position> validMoves = bishopMovement.getPotentiallyValidMoves(A1, null, gameState);
         Set<Position> expected = Set.of(B2, C3);

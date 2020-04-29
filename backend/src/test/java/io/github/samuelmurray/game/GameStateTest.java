@@ -1,6 +1,8 @@
 package io.github.samuelmurray.game;
 
 import io.github.samuelmurray.game.piece.ChessPiece;
+import io.github.samuelmurray.game.piece.ChessPieceFactory;
+import io.github.samuelmurray.game.piece.PieceType;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -15,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameStateTest {
     private GameState gameState;
-    private static final ChessPiece piece = new ChessPiece(Team.BLACK, null);
+    private static final ChessPiece piece = ChessPieceFactory.createPiece(PieceType.PAWN, Team.BLACK);
 
     @Test
     void testGameStateThrowsOnLargeBoardPositions() {

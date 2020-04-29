@@ -59,7 +59,7 @@ class RookMovementTest {
 
     @Test
     void testGetMovesOtherPiecesBlock() {
-        ChessPiece otherPiece = new ChessPiece(null, null);
+        ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(A3, otherPiece));
         Set<Position> validMoves = rookMovement.getPotentiallyValidMoves(A1, null, gameState);
         Set<Position> expected = Set.of(A2, A3, B1, C1, D1, E1, F1, G1, H1);

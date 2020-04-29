@@ -33,7 +33,7 @@ class MovementHelperTest {
 
     @Test
     void getPositionsInDirectionAndStopAtPieceStopsAfterOtherPiece() {
-        ChessPiece otherPiece = new ChessPiece(Team.BLACK, null);
+        ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState emptyGameState = GameState.of(Map.of(B1, otherPiece));
         var actual = MovementHelper.getPositionsInDirectionAndStopAtPiece(A1, emptyGameState, Position::getRight);
         assertEquals(Set.of(B1), actual);

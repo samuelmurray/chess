@@ -33,7 +33,7 @@ class KnightMovementTest {
 
     @Test
     void testGetMovesOtherPiecesDoNotBlock() {
-        ChessPiece otherPiece = new ChessPiece(null, null);
+        ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(A2, otherPiece, A3, otherPiece, B2, otherPiece));
         Set<Position> validMoves = knightMovement.getPotentiallyValidMoves(A1, null, gameState);
         Set<Position> expected = Set.of(C2, B3);

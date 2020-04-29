@@ -49,7 +49,7 @@ class PawnMovementTest {
 
     @Test
     void testGetMovesOtherPiecesBlockForwardInOpening() {
-        ChessPiece otherPiece = new ChessPiece(null, null);
+        ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(A3, otherPiece));
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.WHITE, gameState);
         Set<Position> expected = Set.of(B3);
@@ -58,7 +58,7 @@ class PawnMovementTest {
 
     @Test
     void testGetMovesOtherPiecesBlockForwardInLongOpening() {
-        ChessPiece otherPiece = new ChessPiece(null, null);
+        ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(A4, otherPiece));
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.WHITE, gameState);
         Set<Position> expected = Set.of(A3, B3);
@@ -67,7 +67,7 @@ class PawnMovementTest {
 
     @Test
     void testGetValidMovedOtherPiecesDoNotBlockCapturingMove() {
-        ChessPiece otherPiece = new ChessPiece(null, null);
+        ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(B3, otherPiece));
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.WHITE, gameState);
         Set<Position> expected = Set.of(A3, A4, B3);
