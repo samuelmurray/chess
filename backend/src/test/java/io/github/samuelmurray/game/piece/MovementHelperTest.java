@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import static io.github.samuelmurray.game.Position.A1;
 import static io.github.samuelmurray.game.Position.B1;
@@ -20,7 +20,7 @@ class MovementHelperTest {
     @Test
     void getPositionsInDirectionAndStopAtPieceHandlesOUT_OF_BOARD() {
         GameState emptyGameState = GameState.of(Collections.emptyMap());
-        var actual = MovementHelper.getPositionsInDirectionAndStopAtPiece(OUT_OF_BOARD, emptyGameState, Function.identity());
+        var actual = MovementHelper.getPositionsInDirectionAndStopAtPiece(OUT_OF_BOARD, emptyGameState, UnaryOperator.identity());
         assertEquals(Collections.emptySet(), actual);
     }
 

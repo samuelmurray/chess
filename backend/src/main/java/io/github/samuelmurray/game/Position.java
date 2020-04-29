@@ -52,8 +52,8 @@ public enum Position {
         }
     }
 
-    public boolean isOutOfBoard() {
-        return this == OUT_OF_BOARD;
+    public boolean isOnBoard() {
+        return this != OUT_OF_BOARD;
     }
 
     Position(int x, int y) {

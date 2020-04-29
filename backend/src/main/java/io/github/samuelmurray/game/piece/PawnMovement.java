@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -53,7 +52,7 @@ public class PawnMovement implements PieceMovement {
     private Set<Position> getCapturingMoves(Position currentPosition, UnaryOperator<Position> forward) {
         Position forwardPosition = forward.apply(currentPosition);
         return Stream.of(forwardPosition.getLeft(), forwardPosition.getRight())
-                .filter(Predicate.not(Position::isOutOfBoard))
+                .filter(Position::isOnBoard)
                 .collect(Collectors.toSet());
     }
 }
