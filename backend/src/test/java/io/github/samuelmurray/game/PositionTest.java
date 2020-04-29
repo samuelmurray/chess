@@ -15,23 +15,23 @@ class PositionTest {
     }
 
     @Test
-    void testA1IsBelowB1() {
-        assertEquals(A1, B1.getBelow());
+    void testA1IsBelowA2() {
+        assertEquals(A1, A2.getBelow());
     }
 
     @Test
-    void testB1IsAboveA1() {
-        assertEquals(B1, A1.getAbove());
+    void testA2IsAboveA1() {
+        assertEquals(A2, A1.getAbove());
     }
 
     @Test
-    void testA2IsRightOfA1() {
-        assertEquals(A2, A1.getRight());
+    void testB1IsRightOfA1() {
+        assertEquals(B1, A1.getRight());
     }
 
     @Test
-    void testA1IsLeftOfA2() {
-        assertEquals(A1, A2.getLeft());
+    void testA1IsLeftOfB1() {
+        assertEquals(A1, B1.getLeft());
     }
 
     @Test

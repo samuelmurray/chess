@@ -52,6 +52,10 @@ public enum Position {
         }
     }
 
+    public boolean isOutOfBoard() {
+        return this == OUT_OF_BOARD;
+    }
+
     Position(int x, int y) {
         this.coordinate = new Coordinate(x, y);
     }
@@ -66,19 +70,19 @@ public enum Position {
         }
 
         private boolean isAbove(Coordinate other) {
-            return x == other.x + 1 && y == other.y;
-        }
-
-        private boolean isBelow(Coordinate other) {
-            return x == other.x - 1 && y == other.y;
-        }
-
-        private boolean isRightOf(Coordinate other) {
             return x == other.x && y == other.y + 1;
         }
 
-        private boolean isLeftOf(Coordinate other) {
+        private boolean isBelow(Coordinate other) {
             return x == other.x && y == other.y - 1;
+        }
+
+        private boolean isRightOf(Coordinate other) {
+            return x == other.x + 1 && y == other.y;
+        }
+
+        private boolean isLeftOf(Coordinate other) {
+            return x == other.x - 1 && y == other.y;
         }
     }
 }
