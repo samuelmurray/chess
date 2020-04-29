@@ -59,7 +59,11 @@ public enum Position {
 
     Position(int x, int y) {
         this.coordinate = new Coordinate(x, y);
-        this.unicodeRepresentation = x + y % 2 == 0 ? "\u25A0" : "\u25A1";
+        this.unicodeRepresentation = isBlackPosition(x, y) ? "\u25A0" : "\u25A1";
+    }
+
+    private boolean isBlackPosition(int x, int y) {
+        return (x + y) % 2 == 0;
     }
 
     @Override
