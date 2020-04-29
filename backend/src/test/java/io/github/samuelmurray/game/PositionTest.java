@@ -2,10 +2,13 @@ package io.github.samuelmurray.game;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Stream;
+
 import static io.github.samuelmurray.game.Position.*;
-import static io.github.samuelmurray.game.Position.values;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PositionTest {
 
@@ -15,23 +18,35 @@ class PositionTest {
     }
 
     @Test
-    void testA1IsBelowB1() {
-        assertEquals(A1, B1.getBelow());
+    void testAllPositionsAreOnBoard() {
+        assertTrue(Stream.of(values())
+                .filter(p -> p != OUT_OF_BOARD)
+                .allMatch(Position::isOnBoard));
     }
 
     @Test
-    void testB1IsAboveA1() {
-        assertEquals(B1, A1.getAbove());
+    void testOUT_OF_BOARDIsNotOnBoard() {
+        assertFalse(OUT_OF_BOARD.isOnBoard());
     }
 
     @Test
-    void testA2IsRightOfA1() {
-        assertEquals(A2, A1.getRight());
+    void testA1IsBelowA2() {
+        assertEquals(A1, A2.getBelow());
     }
 
     @Test
-    void testA1IsLeftOfA2() {
-        assertEquals(A1, A2.getLeft());
+    void testA2IsAboveA1() {
+        assertEquals(A2, A1.getAbove());
+    }
+
+    @Test
+    void testB1IsRightOfA1() {
+        assertEquals(B1, A1.getRight());
+    }
+
+    @Test
+    void testA1IsLeftOfB1() {
+        assertEquals(A1, B1.getLeft());
     }
 
     @Test

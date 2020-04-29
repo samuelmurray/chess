@@ -6,11 +6,9 @@ import io.github.samuelmurray.game.Position;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static io.github.samuelmurray.game.Position.OUT_OF_BOARD;
 
 class MovementHelper {
     private MovementHelper() {
@@ -35,9 +33,9 @@ class MovementHelper {
     }
 
     static Set<Position> getPositionsInDirectionAndStopAtPiece(Position currentPosition, GameState gameState,
-                                                               Function<Position, Position> direction) {
+                                                               UnaryOperator<Position> direction) {
         Set<Position> positions = new HashSet<>();
-        for (var nextPosition = direction.apply(currentPosition); nextPosition != OUT_OF_BOARD; nextPosition = direction.apply(nextPosition)) {
+        for (var nextPosition = direction.apply(currentPosition); nextPosition.isOnBoard(); nextPosition = direction.apply(nextPosition)) {
             positions.add(nextPosition);
             if (gameState.hasPieceAt(nextPosition)) {
                 return positions;
