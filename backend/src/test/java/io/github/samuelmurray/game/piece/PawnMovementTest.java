@@ -73,4 +73,20 @@ class PawnMovementTest {
         Set<Position> expected = Set.of(A3, A4, B3);
         assertEquals(expected, validMoves);
     }
+
+    @Test
+    void testBlackPawnMovesDown() {
+        GameState gameState = GameState.of(Collections.emptyMap());
+        Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.BLACK, gameState);
+        Set<Position> expected = Set.of(A1, B1);
+        assertEquals(expected, validMoves);
+    }
+
+    @Test
+    void testBlackPawnStartsAt7() {
+        GameState gameState = GameState.of(Collections.emptyMap());
+        Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A7, Team.BLACK, gameState);
+        Set<Position> expected = Set.of(A6, A5, B6);
+        assertEquals(expected, validMoves);
+    }
 }
