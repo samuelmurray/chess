@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ChessPieceTest {
-    private final ChessPiece noMovePiece = new ChessPiece(Team.BLACK, null, (currentPosition, currentTeam, gameState) -> Collections.emptySet());
-    private final ChessPiece movePiece = new ChessPiece(Team.WHITE, null, (currentPosition, currentTeam, gameState) -> Set.of(A1, A2, A3));
+    private final ChessPiece noMovePiece = DummyPieceFactory.createPiece(Team.BLACK, (position, team, state) -> Collections.emptySet());
+    private final ChessPiece movePiece = DummyPieceFactory.createPiece(Team.WHITE, (position, team, state) -> Set.of(A1, A2, A3));
 
     @Test
     void testGetValidMovesThrowsOnNull() {
@@ -46,7 +46,7 @@ class ChessPieceTest {
 
     @Test
     void testGetValidMovesIsBlockedByFriendlyPiece() {
-        ChessPiece friendlyPiece = new ChessPiece(Team.WHITE, null, null);
+        ChessPiece friendlyPiece = DummyPieceFactory.createPiece(Team.WHITE);
         GameState gameState = GameState.of(Map.of(B2, movePiece, A1, friendlyPiece));
         var actualMoves = movePiece.getValidMoves(gameState);
         Set<Position> expectedMoves = Set.of(A2, A3);
