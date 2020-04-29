@@ -14,6 +14,7 @@ public enum Position {
     OUT_OF_BOARD(-1, -1);
 
     private final Coordinate coordinate;
+    private final String unicodeRepresentation;
     private Position above;
     private Position below;
     private Position right;
@@ -58,6 +59,12 @@ public enum Position {
 
     Position(int x, int y) {
         this.coordinate = new Coordinate(x, y);
+        this.unicodeRepresentation = x + y % 2 == 0 ? "\u25A0" : "\u25A1";
+    }
+
+    @Override
+    public String toString() {
+        return unicodeRepresentation;
     }
 
     private static class Coordinate {
