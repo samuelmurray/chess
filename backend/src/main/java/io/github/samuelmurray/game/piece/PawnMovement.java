@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 import static io.github.samuelmurray.game.Position.*;
 
-public class PawnMovement implements PieceMovement {
+final class PawnMovement implements PieceMovement {
     private static final List<Position> WHITE_STARTING_POSITIONS = List.of(A2, B2, C2, D2, E2, F2, G2, H2);
     private static final List<Position> BLACK_STARTING_POSITIONS = List.of(A7, B7, C7, D7, E7, F7, G7, H7);
 

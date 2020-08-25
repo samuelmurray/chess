@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static io.github.samuelmurray.game.piece.MovementHelper.getDiagonalMovement;
 
-public class BishopMovement implements PieceMovement {
+final class BishopMovement implements PieceMovement {
     @Override
     public Set<Position> getPotentiallyValidMoves(Position currentPosition, Team currentTeam, GameState gameState) {
         return getDiagonalMovement(currentPosition, gameState);

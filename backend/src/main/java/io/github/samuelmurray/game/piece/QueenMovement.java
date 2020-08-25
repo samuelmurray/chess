@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import static io.github.samuelmurray.game.piece.MovementHelper.getDiagonalMovement;
 import static io.github.samuelmurray.game.piece.MovementHelper.getStraightMovement;
 
-public class QueenMovement implements PieceMovement {
+final class QueenMovement implements PieceMovement {
     @Override
     public Set<Position> getPotentiallyValidMoves(Position currentPosition, Team currentTeam, GameState gameState) {
         return Stream.of(getStraightMovement(currentPosition, gameState), getDiagonalMovement(currentPosition, gameState))

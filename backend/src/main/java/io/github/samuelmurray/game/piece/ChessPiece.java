@@ -14,11 +14,13 @@ public final class ChessPiece {
     private final Team team;
     private final PieceType type;
     private final PieceMovement pieceMovement;
+    private final String unicodeRepresentation;
 
-    ChessPiece(Team team, PieceType type, PieceMovement pieceMovement) {
+    ChessPiece(Team team, PieceType type, PieceMovement pieceMovement, String unicodeRepresentation) {
         this.team = team;
         this.type = type;
         this.pieceMovement = pieceMovement;
+        this.unicodeRepresentation = unicodeRepresentation;
     }
 
     public Team getTeam() {
@@ -39,5 +41,10 @@ public final class ChessPiece {
 
     private Function<ChessPiece, Boolean> isCapturingMove() {
         return piece -> piece.team != this.team;
+    }
+
+    @Override
+    public String toString() {
+        return unicodeRepresentation;
     }
 }
