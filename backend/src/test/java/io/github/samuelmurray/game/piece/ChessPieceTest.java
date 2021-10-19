@@ -19,25 +19,25 @@ class ChessPieceTest {
     private final ChessPiece movePiece = new ChessPiece(Team.WHITE, null, (currentPosition, currentTeam, gameState) -> Set.of(A1, A2, A3));
 
     @Test
-    void testGetValidMovesThrowsOnNull() {
+    void getValidMovesThrowsOnNull() {
         assertThrows(NullPointerException.class, () -> noMovePiece.getValidMoves(null));
     }
 
     @Test
-    void testGetValidMovesThrowsOnMissingPiece() {
+    void getValidMovesThrowsOnMissingPiece() {
         GameState emptyGameState = GameState.of(Collections.emptyMap());
         assertThrows(ChessException.class, () -> noMovePiece.getValidMoves(emptyGameState));
     }
 
     @Test
-    void testGetValidMovesReturnsEmptySetForNoMoves() {
+    void getValidMovesReturnsEmptySetForNoMoves() {
         GameState gameState = GameState.of(Map.of(A1, noMovePiece));
         var actual = noMovePiece.getValidMoves(gameState);
         assertEquals(Collections.emptySet(), actual);
     }
 
     @Test
-    void testGetValidMovesReturnsPotentiallyValidMovesForEmptyBoard() {
+    void getValidMovesReturnsPotentiallyValidMovesForEmptyBoard() {
         GameState gameState = GameState.of(Map.of(B2, movePiece));
         var actualMoves = movePiece.getValidMoves(gameState);
         Set<Position> expectedMoves = Set.of(A1, A2, A3);
@@ -45,7 +45,7 @@ class ChessPieceTest {
     }
 
     @Test
-    void testGetValidMovesIsBlockedByFriendlyPiece() {
+    void getValidMovesIsBlockedByFriendlyPiece() {
         ChessPiece friendlyPiece = new ChessPiece(Team.WHITE, null, null);
         GameState gameState = GameState.of(Map.of(B2, movePiece, A1, friendlyPiece));
         var actualMoves = movePiece.getValidMoves(gameState);
@@ -54,7 +54,7 @@ class ChessPieceTest {
     }
 
     @Test
-    void testGetValidMovesIsNotBlockedByOpponentPiece() {
+    void getValidMovesIsNotBlockedByOpponentPiece() {
         GameState gameState = GameState.of(Map.of(B2, movePiece, A1, noMovePiece));
         var actualMoves = movePiece.getValidMoves(gameState);
         Set<Position> expectedMoves = Set.of(A1, A2, A3);
@@ -62,7 +62,7 @@ class ChessPieceTest {
     }
 
     @Test
-    void testGetValidMovesFiltersCurrentPosition() {
+    void getValidMovesFiltersCurrentPosition() {
         GameState gameState = GameState.of(Map.of(A2, movePiece));
         var actualMoves = movePiece.getValidMoves(gameState);
         Set<Position> expectedMoves = Set.of(A1, A3);

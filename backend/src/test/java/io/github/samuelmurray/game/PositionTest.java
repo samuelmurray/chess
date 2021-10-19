@@ -1,10 +1,13 @@
 package io.github.samuelmurray.game;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.util.stream.Stream;
 
 import static io.github.samuelmurray.game.Position.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,64 +16,66 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PositionTest {
 
     @Test
-    void testPositionHas65Entries() {
+    void positionHas65Entries() {
         assertEquals(65, values().length);
     }
 
-    @Test
-    void testAllPositionsAreOnBoard() {
-        assertTrue(Stream.of(values())
-                .filter(p -> p != OUT_OF_BOARD)
-                .allMatch(Position::isOnBoard));
+    @ParameterizedTest
+    @EnumSource(value = Position.class, names = "OUT_OF_BOARD", mode = EnumSource.Mode.EXCLUDE)
+    void allPositionsAreOnBoard(Position position) {
+        assertThat(position.isOnBoard())
+                .isTrue();
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = Position.class, names = "OUT_OF_BOARD", mode = EnumSource.Mode.INCLUDE)
+    void OUT_OF_BOARD_IsNotOnBoard(Position position) {
+        assertThat(position.isOnBoard())
+                .isFalse();
     }
 
     @Test
-    void testOUT_OF_BOARDIsNotOnBoard() {
-        assertFalse(OUT_OF_BOARD.isOnBoard());
-    }
-
-    @Test
-    void testA1IsBelowA2() {
+    void a1IsBelowA2() {
         assertEquals(A1, A2.getBelow());
     }
 
     @Test
-    void testA2IsAboveA1() {
+    void a2IsAboveA1() {
         assertEquals(A2, A1.getAbove());
     }
 
     @Test
-    void testB1IsRightOfA1() {
+    void b1IsRightOfA1() {
         assertEquals(B1, A1.getRight());
     }
 
     @Test
-    void testA1IsLeftOfB1() {
+    void a1IsLeftOfB1() {
         assertEquals(A1, B1.getLeft());
     }
 
     @Test
-    void testA1HasNothingBelow() {
+    void a1HasNothingBelow() {
         assertEquals(OUT_OF_BOARD, A1.getBelow());
     }
 
     @Test
-    void testA1HasNothingLeft() {
+    void a1HasNothingLeft() {
         assertEquals(OUT_OF_BOARD, A1.getLeft());
     }
 
     @Test
-    void testH8HasNothingAbove() {
+    void h8HasNothingAbove() {
         assertEquals(OUT_OF_BOARD, H8.getAbove());
     }
 
     @Test
-    void testH8HasNothingRight() {
+    void h8HasNothingRight() {
         assertEquals(OUT_OF_BOARD, H8.getRight());
     }
 
     @Test
-    void testOUT_OF_BOARDHasNoNeighbours() {
+    void OUT_OF_BOARD_HasNoNeighbours() {
         assertAll(
                 () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.getAbove()),
                 () -> assertEquals(OUT_OF_BOARD, OUT_OF_BOARD.getBelow()),
@@ -80,7 +85,7 @@ class PositionTest {
     }
 
     @Test
-    void testRelationsAreAntiSymmetrical() {
+    void relationsAreAntiSymmetrical() {
         for (var position : values()) {
             if (position.getAbove() != null && position.getAbove() != OUT_OF_BOARD) {
                 assertEquals(position, position.getAbove().getBelow());

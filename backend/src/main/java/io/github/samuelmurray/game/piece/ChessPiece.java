@@ -8,6 +8,7 @@ import io.github.samuelmurray.game.Team;
 
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public final class ChessPiece {
@@ -33,11 +34,11 @@ public final class ChessPiece {
         Position currentPosition = gameState.getPositionOfPiece(this)
                 .orElseThrow(() -> new ChessException("Can't call getValidModes on piece missing from the game state"));
         return pieceMovement.getPotentiallyValidMoves(currentPosition, team, gameState).stream()
-                .filter(position -> gameState.getPieceAt(position).map(isCapturingMove()).orElse(true))
+                .filter(position -> gameState.getPieceAt(position).map(this::isCapturingMove).orElse(true))
                 .collect(Collectors.toSet());
     }
 
-    private Function<ChessPiece, Boolean> isCapturingMove() {
-        return piece -> piece.team != this.team;
+    private boolean isCapturingMove(ChessPiece piece) {
+        return piece.team != this.team;
     }
 }

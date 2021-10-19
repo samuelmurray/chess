@@ -15,7 +15,7 @@ class QueenMovementTest {
     private final QueenMovement queenMovement = new QueenMovement();
 
     @Test
-    void testGetMovesInCorner() {
+    void getMovesInCorner() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = queenMovement.getPotentiallyValidMoves(A1, null, gameState);
         Set<Position> expected = Set.of(A2, A3, A4, A5, A6, A7, A8, B1, C1, D1, E1, F1, G1, H1, B2, C3, D4, E5, F6, G7, H8);
@@ -23,7 +23,7 @@ class QueenMovementTest {
     }
 
     @Test
-    void testGetMovesInMiddle() {
+    void getMovesInMiddle() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = queenMovement.getPotentiallyValidMoves(C3, null, gameState);
         Set<Position> expected = Set.of(A3, B3, D3, E3, F3, G3, H3, C1, C2, C4, C5, C6, C7, C8,
@@ -32,7 +32,7 @@ class QueenMovementTest {
     }
 
     @Test
-    void testGetMovesOtherPiecesBlock() {
+    void getMovesOtherPiecesBlock() {
         ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(A3, otherPiece, B2, otherPiece));
         Set<Position> validMoves = queenMovement.getPotentiallyValidMoves(A1, null, gameState);

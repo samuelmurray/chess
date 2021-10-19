@@ -18,13 +18,13 @@ class PawnMovementTest {
     private final PawnMovement pawnMovement = new PawnMovement();
 
     @Test
-    void testGetPotentiallyValidMovesThrowsOnNullTeam() {
+    void getPotentiallyValidMovesThrowsOnNullTeam() {
         GameState gameState = GameState.of(Collections.emptyMap());
         assertThrows(NullPointerException.class, () -> pawnMovement.getPotentiallyValidMoves(A1, null, gameState));
     }
 
     @Test
-    void testGetMovesInSideOpening() {
+    void getMovesInSideOpening() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.WHITE, gameState);
         Set<Position> expected = Set.of(A3, A4, B3);
@@ -32,7 +32,7 @@ class PawnMovementTest {
     }
 
     @Test
-    void testGetMovesInMiddleOpening() {
+    void getMovesInMiddleOpening() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(B2, Team.WHITE, gameState);
         Set<Position> expected = Set.of(B3, B4, A3, C3);
@@ -40,7 +40,7 @@ class PawnMovementTest {
     }
 
     @Test
-    void testGetMovesInMiddle() {
+    void getMovesInMiddle() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(B3, Team.WHITE, gameState);
         Set<Position> expected = Set.of(A4, B4, C4);
@@ -48,7 +48,7 @@ class PawnMovementTest {
     }
 
     @Test
-    void testGetMovesOtherPiecesBlockForwardInOpening() {
+    void getMovesOtherPiecesBlockForwardInOpening() {
         ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(A3, otherPiece));
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.WHITE, gameState);
@@ -57,7 +57,7 @@ class PawnMovementTest {
     }
 
     @Test
-    void testGetMovesOtherPiecesBlockForwardInLongOpening() {
+    void getMovesOtherPiecesBlockForwardInLongOpening() {
         ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(A4, otherPiece));
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.WHITE, gameState);
@@ -66,7 +66,7 @@ class PawnMovementTest {
     }
 
     @Test
-    void testGetValidMovedOtherPiecesDoNotBlockCapturingMove() {
+    void getValidMovedOtherPiecesDoNotBlockCapturingMove() {
         ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(B3, otherPiece));
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.WHITE, gameState);
@@ -75,7 +75,7 @@ class PawnMovementTest {
     }
 
     @Test
-    void testBlackPawnMovesDown() {
+    void blackPawnMovesDown() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A2, Team.BLACK, gameState);
         Set<Position> expected = Set.of(A1, B1);
@@ -83,7 +83,7 @@ class PawnMovementTest {
     }
 
     @Test
-    void testBlackPawnStartsAt7() {
+    void blackPawnStartsAt7() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = pawnMovement.getPotentiallyValidMoves(A7, Team.BLACK, gameState);
         Set<Position> expected = Set.of(A6, A5, B6);

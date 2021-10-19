@@ -16,7 +16,7 @@ class KingMovementTest {
     private final KingMovement kingMovement = new KingMovement();
 
     @Test
-    void testGetMovesInCorner() {
+    void getMovesInCorner() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = kingMovement.getPotentiallyValidMoves(A1, null, gameState);
         Set<Position> expected = Set.of(A2, B1, B2);
@@ -24,7 +24,7 @@ class KingMovementTest {
     }
 
     @Test
-    void testGetMovesInMiddle() {
+    void getMovesInMiddle() {
         GameState gameState = GameState.of(Collections.emptyMap());
         Set<Position> validMoves = kingMovement.getPotentiallyValidMoves(B2, null, gameState);
         Set<Position> expected = Set.of(A1, A2, A3, B1, B3, C1, C2, C3);
@@ -32,7 +32,7 @@ class KingMovementTest {
     }
 
     @Test
-    void testGetMovesOtherPiecesDoNotBlock() {
+    void getMovesOtherPiecesDoNotBlock() {
         ChessPiece otherPiece = DummyPieceFactory.createPiece();
         GameState gameState = GameState.of(Map.of(A2, otherPiece));
         Set<Position> validMoves = kingMovement.getPotentiallyValidMoves(A1, null, gameState);
