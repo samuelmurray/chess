@@ -11,6 +11,7 @@ public final class ChessPieceFactory {
     }
 
     public static ChessPiece createPiece(PieceType type, Team team) {
+        Objects.requireNonNull(type);
         Objects.requireNonNull(team);
         return switch (type) {
             case KING -> createKing(team);

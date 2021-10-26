@@ -7,9 +7,8 @@ import io.github.samuelmurray.game.Position;
 import io.github.samuelmurray.game.Team;
 
 import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 public final class ChessPiece {
     private final Team team;
@@ -32,10 +31,10 @@ public final class ChessPiece {
 
     public Set<Position> getValidMoves(GameState gameState) {
         Position currentPosition = gameState.getPositionOfPiece(this)
-                .orElseThrow(() -> new ChessException("Can't call getValidModes on piece missing from the game state"));
+                .orElseThrow(() -> new ChessException("Can't call getValidMoves on piece missing from the game state"));
         return pieceMovement.getPotentiallyValidMoves(currentPosition, team, gameState).stream()
                 .filter(position -> gameState.getPieceAt(position).map(this::isCapturingMove).orElse(true))
-                .collect(Collectors.toSet());
+                .collect(toUnmodifiableSet());
     }
 
     private boolean isCapturingMove(ChessPiece piece) {

@@ -6,16 +6,11 @@ import io.github.samuelmurray.game.piece.PieceType;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
-import static io.github.samuelmurray.game.Position.A1;
-import static io.github.samuelmurray.game.Position.A2;
-import static io.github.samuelmurray.game.Position.OUT_OF_BOARD;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static io.github.samuelmurray.game.Position.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class GameStateTest {
     private GameState gameState;
@@ -23,78 +18,93 @@ class GameStateTest {
 
     @Test
     void gameStateThrowsOnLargeBoardPositions() {
-        Map<Position, ChessPiece> boardPositions = new HashMap<>();
-        boardPositions.put(OUT_OF_BOARD, piece);
-        assertThrows(IllegalArgumentException.class, () -> GameState.of(boardPositions));
+        Map<Position, ChessPiece> boardPositions = Map.of(OUT_OF_BOARD, piece);
+
+        assertThatThrownBy(() -> GameState.of(boardPositions))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void hasPieceAtThrowsOnNull() {
         gameState = GameState.of(Collections.emptyMap());
-        assertThrows(NullPointerException.class, () -> gameState.hasPieceAt(null));
+
+        assertThatThrownBy(() -> gameState.hasPieceAt(null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void hasPieceAtReturnFalseForNoPiece() {
         gameState = GameState.of(Collections.emptyMap());
-        assertFalse(gameState.hasPieceAt(A1));
+
+        assertThat(gameState.hasPieceAt(A1))
+                .isFalse();
     }
 
     @Test
     void hasPieceAtReturnTrueForPiece() {
         gameState = GameState.of(Map.of(A1, piece));
-        assertTrue(gameState.hasPieceAt(A1));
+
+        assertThat(gameState.hasPieceAt(A1))
+                .isTrue();
     }
 
     @Test
     void getPieceAtThrowsOnNull() {
         gameState = GameState.of(Collections.emptyMap());
-        assertThrows(NullPointerException.class, () -> gameState.getPieceAt(null));
+
+        assertThatThrownBy(() -> gameState.getPieceAt(null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void getPieceAtReturnsEmptyOptionalForUnoccupiedPosition() {
         gameState = GameState.of(Collections.emptyMap());
-        var maybeChessPiece = gameState.getPieceAt(A1);
-        assertTrue(maybeChessPiece.isEmpty());
+
+        assertThat(gameState.getPieceAt(A1))
+                .isEmpty();
     }
 
     @Test
     void getPieceAtReturnsCorrectPiece() {
         gameState = GameState.of(Map.of(A1, piece));
-        var maybeChessPiece = gameState.getPieceAt(A1);
-        assertTrue(maybeChessPiece.isPresent());
-        assertEquals(piece, maybeChessPiece.get());
+
+        assertThat(gameState.getPieceAt(A1))
+                .get()
+                .isEqualTo(piece);
     }
 
     @Test
-    void getPositionOfPieceReturnsEmptyOptionalForNull() {
+    void getPositionOfPieceThrowsOnNull() {
         gameState = GameState.of(Collections.emptyMap());
-        var maybePosition = gameState.getPositionOfPiece(null);
-        assertTrue(maybePosition.isEmpty());
+
+        assertThatThrownBy(() -> gameState.getPositionOfPiece(null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void getPositionOfPieceReturnsEmptyOptionalForMissingPiece() {
         gameState = GameState.of(Collections.emptyMap());
-        var maybePosition = gameState.getPositionOfPiece(piece);
-        assertTrue(maybePosition.isEmpty());
+
+        assertThat(gameState.getPositionOfPiece(piece))
+                .isEmpty();
     }
 
     @Test
     void getPositionOfPieceReturnsCorrectPosition() {
         gameState = GameState.of(Map.of(A1, piece));
-        var maybeChessPiece = gameState.getPositionOfPiece(piece);
-        assertTrue(maybeChessPiece.isPresent());
-        assertEquals(A1, maybeChessPiece.get());
+
+        assertThat(gameState.getPositionOfPiece(piece))
+                .get()
+                .isEqualTo(A1);
     }
 
     @Test
     void getPositionOfPieceReturnsPositionOfCorrectPiece() {
         ChessPiece otherPiece = ChessPieceFactory.createPiece(PieceType.PAWN, Team.BLACK);
         gameState = GameState.of(Map.of(A1, piece, A2, otherPiece));
-        var maybeChessPiece = gameState.getPositionOfPiece(piece);
-        assertTrue(maybeChessPiece.isPresent());
-        assertEquals(A1, maybeChessPiece.get());
+
+        assertThat(gameState.getPositionOfPiece(piece))
+                .get()
+                .isEqualTo(A1);
     }
 }

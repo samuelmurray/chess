@@ -7,29 +7,30 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class MovementHelper {
+import static java.util.stream.Collectors.toUnmodifiableSet;
+
+final class MovementHelper {
     private MovementHelper() {
     }
 
     static Set<Position> getStraightMovement(Position currentPosition, GameState gameState) {
-        return Stream.of(getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, Position::getAbove),
-                getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, Position::getBelow),
-                getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, Position::getLeft),
-                getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, Position::getRight))
+        return Stream.of(getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, Position::up),
+                        getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, Position::down),
+                        getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, Position::left),
+                        getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, Position::right))
                 .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
+                .collect(toUnmodifiableSet());
     }
 
     static Set<Position> getDiagonalMovement(Position currentPosition, GameState gameState) {
-        return Stream.of(getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, position -> position.getAbove().getRight()),
-                getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, position -> position.getAbove().getLeft()),
-                getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, position -> position.getBelow().getLeft()),
-                getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, position -> position.getBelow().getRight()))
+        return Stream.of(getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, position -> position.up().right()),
+                        getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, position -> position.up().left()),
+                        getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, position -> position.down().left()),
+                        getPositionsInDirectionAndStopAtPiece(currentPosition, gameState, position -> position.down().right()))
                 .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
+                .collect(toUnmodifiableSet());
     }
 
     static Set<Position> getPositionsInDirectionAndStopAtPiece(Position currentPosition, GameState gameState,

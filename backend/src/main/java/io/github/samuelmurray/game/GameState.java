@@ -3,32 +3,34 @@ package io.github.samuelmurray.game;
 import io.github.samuelmurray.game.piece.ChessPiece;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public class GameState {
-    private final Map<Position, ChessPiece> positionToChessPiece;
+    private final Map<Position, ChessPiece> gameBoard;
 
-    private GameState(Map<Position, ChessPiece> positionToChessPiece) {
-        this.positionToChessPiece = positionToChessPiece;
+    private GameState(Map<Position, ChessPiece> gameBoard) {
+        this.gameBoard = gameBoard;
     }
 
-    public static GameState of(Map<Position, ChessPiece> positionToChessPiece) {
-        if (positionToChessPiece.containsKey(Position.OUT_OF_BOARD)) {
-            throw new IllegalArgumentException("positionToChessPiece can't contain Position.OUT_OF_BOARD");
+    public static GameState of(Map<Position, ChessPiece> gameBoard) {
+        if (gameBoard.containsKey(Position.OUT_OF_BOARD)) {
+            throw new IllegalArgumentException("gameBoard can't contain Position.OUT_OF_BOARD");
         }
-        return new GameState(Map.copyOf(positionToChessPiece));
+        return new GameState(Map.copyOf(gameBoard));
     }
 
     public boolean hasPieceAt(Position position) {
-        return positionToChessPiece.containsKey(position);
+        return gameBoard.containsKey(position);
     }
 
     public Optional<ChessPiece> getPieceAt(Position position) {
-        return Optional.ofNullable(positionToChessPiece.get(position));
+        return Optional.ofNullable(gameBoard.get(position));
     }
 
     public Optional<Position> getPositionOfPiece(ChessPiece chessPiece) {
-        return positionToChessPiece.entrySet().stream()
+        Objects.requireNonNull(chessPiece);
+        return gameBoard.entrySet().stream()
                 .filter(e -> e.getValue() == chessPiece)
                 .map(Map.Entry::getKey)
                 .findAny();

@@ -3,29 +3,34 @@ package io.github.samuelmurray.game.piece;
 import io.github.samuelmurray.game.Team;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ChessPieceFactoryTest {
 
     @Test
     void createPieceThrowsOnNullType() {
-        assertThrows(NullPointerException.class, () -> ChessPieceFactory.createPiece(null, Team.BLACK));
+        assertThatThrownBy(() -> ChessPieceFactory.createPiece(null, Team.BLACK))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void createPieceThrowsOnNullTeam() {
-        assertThrows(NullPointerException.class, () -> ChessPieceFactory.createPiece(PieceType.KING, null));
+        assertThatThrownBy(() -> ChessPieceFactory.createPiece(PieceType.KING, null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void createPieceCreatesCorrectTeam() {
-        ChessPiece piece = ChessPieceFactory.createPiece(PieceType.KING, Team.BLACK);
-        assertEquals(Team.BLACK, piece.getTeam());
+        assertThat(ChessPieceFactory.createPiece(PieceType.KING, Team.BLACK))
+                .extracting(ChessPiece::getTeam)
+                .isEqualTo(Team.BLACK);
     }
 
     @Test
     void createPieceCreatesCorrectType() {
-        ChessPiece piece = ChessPieceFactory.createPiece(PieceType.KING, Team.BLACK);
-        assertEquals(PieceType.KING, piece.getType());
+        assertThat(ChessPieceFactory.createPiece(PieceType.KING, Team.BLACK))
+                .extracting(ChessPiece::getType)
+                .isEqualTo(PieceType.KING);
     }
 }

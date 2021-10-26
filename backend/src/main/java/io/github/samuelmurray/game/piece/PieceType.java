@@ -6,5 +6,5 @@ public enum PieceType {
     BISHOP,
     ROOK,
     KNIGHT,
-    PAWN
+    PAWN,
 }

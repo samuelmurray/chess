@@ -2,7 +2,6 @@ package io.github.samuelmurray.game.piece;
 
 import io.github.samuelmurray.game.ChessException;
 import io.github.samuelmurray.game.GameState;
-import io.github.samuelmurray.game.Position;
 import io.github.samuelmurray.game.Team;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import static io.github.samuelmurray.game.Position.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ChessPieceTest {
     private final ChessPiece noMovePiece = new ChessPiece(Team.BLACK, null, (currentPosition, currentTeam, gameState) -> Collections.emptySet());
@@ -20,52 +19,56 @@ class ChessPieceTest {
 
     @Test
     void getValidMovesThrowsOnNull() {
-        assertThrows(NullPointerException.class, () -> noMovePiece.getValidMoves(null));
+        assertThatThrownBy(() -> noMovePiece.getValidMoves(null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void getValidMovesThrowsOnMissingPiece() {
         GameState emptyGameState = GameState.of(Collections.emptyMap());
-        assertThrows(ChessException.class, () -> noMovePiece.getValidMoves(emptyGameState));
+
+        assertThatThrownBy(() -> noMovePiece.getValidMoves(emptyGameState))
+                .isInstanceOf(ChessException.class);
     }
 
     @Test
     void getValidMovesReturnsEmptySetForNoMoves() {
         GameState gameState = GameState.of(Map.of(A1, noMovePiece));
-        var actual = noMovePiece.getValidMoves(gameState);
-        assertEquals(Collections.emptySet(), actual);
+
+        assertThat(noMovePiece.getValidMoves(gameState))
+                .isEmpty();
     }
 
     @Test
     void getValidMovesReturnsPotentiallyValidMovesForEmptyBoard() {
         GameState gameState = GameState.of(Map.of(B2, movePiece));
-        var actualMoves = movePiece.getValidMoves(gameState);
-        Set<Position> expectedMoves = Set.of(A1, A2, A3);
-        assertEquals(expectedMoves, actualMoves);
+
+        assertThat(movePiece.getValidMoves(gameState))
+                .containsExactlyInAnyOrder(A1, A2, A3);
     }
 
     @Test
     void getValidMovesIsBlockedByFriendlyPiece() {
         ChessPiece friendlyPiece = new ChessPiece(Team.WHITE, null, null);
         GameState gameState = GameState.of(Map.of(B2, movePiece, A1, friendlyPiece));
-        var actualMoves = movePiece.getValidMoves(gameState);
-        Set<Position> expectedMoves = Set.of(A2, A3);
-        assertEquals(expectedMoves, actualMoves);
+
+        assertThat(movePiece.getValidMoves(gameState))
+                .containsExactlyInAnyOrder(A2, A3);
     }
 
     @Test
     void getValidMovesIsNotBlockedByOpponentPiece() {
         GameState gameState = GameState.of(Map.of(B2, movePiece, A1, noMovePiece));
-        var actualMoves = movePiece.getValidMoves(gameState);
-        Set<Position> expectedMoves = Set.of(A1, A2, A3);
-        assertEquals(expectedMoves, actualMoves);
+
+        assertThat(movePiece.getValidMoves(gameState))
+                .containsExactlyInAnyOrder(A1, A2, A3);
     }
 
     @Test
     void getValidMovesFiltersCurrentPosition() {
         GameState gameState = GameState.of(Map.of(A2, movePiece));
-        var actualMoves = movePiece.getValidMoves(gameState);
-        Set<Position> expectedMoves = Set.of(A1, A3);
-        assertEquals(expectedMoves, actualMoves);
+
+        assertThat(movePiece.getValidMoves(gameState))
+                .containsExactlyInAnyOrder(A1, A3);
     }
 }
