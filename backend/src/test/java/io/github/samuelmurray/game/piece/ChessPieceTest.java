@@ -49,7 +49,7 @@ class ChessPieceTest {
 
     @Test
     void getValidMovesIsBlockedByFriendlyPiece() {
-        ChessPiece friendlyPiece = new ChessPiece(Team.WHITE, null, null);
+        ChessPiece friendlyPiece = new ChessPiece(Team.WHITE, null);
         GameState gameState = GameState.of(Map.of(B2, movePiece, A1, friendlyPiece));
 
         assertThat(movePiece.getValidMoves(gameState))
